@@ -9,17 +9,17 @@ private:
     int width;
     int height;
 public:
-    //Default Constructor with predefined values
-    Table(int width=0, int height=0)
+    //Default Constructor
+    Table(){}
+    //Constructor with parameters
+    Table(int width, int height)
     {
         this->width = width;
         this->height = height;
     }
-
-    //Print Table
     void print()
     {
-        cout<<"Table: "<<width<<" "<<height<<endl;
+        cout<<"Table: "<<height<<" "<<width<<endl;
     }
 };
 
@@ -32,19 +32,16 @@ private:
 public:
     //Default Constructor
     Room(){}
-    //Parametrized Constructor
-    Room(int width, int length, Table &table)
+    //Constructor with parameters
+    Room(Table table, int length, int width)
     {
-        this->width = width;
-        this->length = length;
         this->table = table;
+        this->length = length;
+        this->width = width;
     }
-
-    //Print Room
     void print()
     {
-        cout<<"Room: "<<width<<" "<<length;
-        cout<<" ";
+        cout<<"Room: "<<length<<" "<<width<<" ";
         table.print();
     }
 };
@@ -55,18 +52,17 @@ private:
     Room room;
     char address[50];
 public:
-    //Default Constructor with predefined values
-    House(Room &room, char *address)
+    //Default Constructor
+    House(){}
+    //Constructor with parameters
+    House(Room room, char *address)
     {
         this->room = room;
         strcpy(this->address, address);
     }
-
-    //Print House
     void print()
     {
-        cout<<"Address: "<<address;
-        cout<<" ";
+        cout<<"Address: "<<address<<" ";
         room.print();
     }
 };
@@ -76,23 +72,22 @@ int main()
     int n;
     cin>>n;
 
-    for(int i=0;i<n;i++)
+    for (int i=0; i<n; i++)
     {
-    	int tableWidth, tableHeight;
-        cin>>tableWidth;
-        cin>>tableHeight;
-    	Table t(tableWidth, tableHeight);
+        int table_height, table_width;
+        int room_length, room_width;
+        char address[50];
 
-    	int rw, rl;
-        cin>>rw;
-        cin>>rl;
-    	Room r(rw, rl, t);
+        cin>>table_height>>table_width;
+        cin>>room_length>>room_width;
+        cin>>address;
 
-    	char adresa[30];
-        cin>>adresa;
-    	House h(r,adresa);
-    	h.print();
-	}
+        Table t(table_width, table_height);
+        Room r(t, room_length, room_width);
+        House h(r, address);
+
+        h.print();
+    }
 
     return 0;
 }
